@@ -1,0 +1,58 @@
+/** Add CSS rules here for your application. */
+
+body {
+    font-family: "Titillium Web","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}
+
+td.num {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.winnersPanel {
+    margin: 15px 30px;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+    font-weight: normal !important;
+}
+.mainTabContainer.gwt-TabPanel {
+    display: block;
+    margin: 0 auto;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+    width: 400px;
+}
+
+.dialogVPanel {
+    margin: 5px;
+}
+
+.serverResponseLabelError {
+    color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+    margin: 15px 6px 6px;
+}
+
+.errorLabelContainer {
+    color:red;
+    text-align:center;
+    margin: 3px;
+}
+
+.gwt-TextArea {
+    outline: none !important;
+    border:1px solid gray;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+.gwt-TextArea:focus {
+    outline: none !important;
+    border:1px solid silver ;
+    box-shadow: 0 0 10px #719ECE;
+}
