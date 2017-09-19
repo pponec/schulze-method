@@ -30,6 +30,7 @@ import net.ponec.schulze.shared.FieldVerifier;
  * navigate with your browser to a specific url given by Maven.
  * See https://gwt-maven-plugin.github.io/gwt-maven-plugin/user-guide/testing.html
  * for details.
+ * @author Pavel Ponec
  */
 public class GwtTestschulze extends GWTTestCase {
 

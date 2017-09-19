@@ -18,13 +18,14 @@ package net.ponec.schulze.client.service.method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import net.ponec.schulze.client.service.domain.Preference;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author pavel
+ * jUnit tests
+ * @author Pavel Ponec
  */
 public class SchulzeMethodTest {
 
@@ -57,8 +58,8 @@ public class SchulzeMethodTest {
 
     // ------ Helper method ------
 
-    protected static ArrayList<Character> createCandidates(char ... candidates) {
-        ArrayList result = new ArrayList<Character>(candidates.length);
+    protected List<Character> createCandidates(char ... candidates) {
+        final List<Character> result = new ArrayList<>(candidates.length);
         for (Character candidate : candidates) {
             result.add(candidate);
         }

@@ -103,7 +103,7 @@ public class SingleVoteMethod<C> extends AbstractVoitingMethod<C> {
         /** Count */
         int i;
 
-        Envelope(C c) {
+        Envelope(final C c) {
             this.c = c;
         }
     }

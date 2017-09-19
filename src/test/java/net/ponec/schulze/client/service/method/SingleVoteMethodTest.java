@@ -15,13 +15,57 @@
  */
 package net.ponec.schulze.client.service.method;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import net.ponec.schulze.client.service.domain.Preference;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
 /**
- *
+ * jUnit tests
  * @author Pavel Ponec
  */
 public class SingleVoteMethodTest {
 
-    // TODO
+    /** Common election utils */
+    protected final ElectionUtils utils = new ElectionUtils();
 
+   /**
+     * Test of sort method, of class SchulzeMethod.
+     */
+    @Test
+    public void testGetWinners() {
+        System.out.println("testGetWinners");
+        Collection<String> candidates = createCandidates('A','B','C');
+        SingleVoteMethod<String> instance = new SingleVoteMethod<>(candidates);
+        String expResult = "A-BC";
+
+        instance.addPreference(createPreference("A-B-C"));
+        instance.addPreference(createPreference("A-C-B"));
+        instance.addPreference(createPreference("A-C"));
+        instance.addPreference(createPreference("B-C"));
+        instance.addPreference(createPreference("C-B"));
+        instance.addPreference(createPreference("B-C"));
+        instance.addPreference(createPreference("C-B"));
+
+        assertEquals(3, instance.getCandidateCount());
+        assertEquals(7, instance.getPreferenceCount());
+        assertEquals(expResult, instance.getWinners().toString());
+    }
+
+    // ------ Helper method ------
+
+    protected List<String> createCandidates(char ... candidates) {
+        final List<String> result = new ArrayList<>(candidates.length);
+        for (char candidate : candidates) {
+            result.add(((Character)candidate).toString());
+        }
+        return result;
+    }
+
+    protected Preference<String> createPreference(String preference) {
+        return utils.convertToPreference(preference);
+    }
 
 }
