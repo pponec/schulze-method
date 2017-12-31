@@ -16,6 +16,12 @@
 package net.ponec.schulze.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Properties;
 import net.ponec.schulze.client.LogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,30 +36,45 @@ public class LogServiceImpl extends RemoteServiceServlet implements
     /** Logger */
     private static final Logger LOGGER = LoggerFactory.getLogger(LogServiceImpl.class);
 
+    /** Configuration file */
+    private static final Path CONFIG_FILE = Paths.get(System.getProperty("user.home"), ".config/gwtschulze/config.properties");
+
+    /** Configuration file */
+    private static final String LOG_IP_ADDRESS_PARAM = "logIpAddress";
+
+    /** The {@code true} value */
+    private static final String TRUE = "true";
+
+
     /** Log all events */
     @Override
     public boolean logEvent(String message, int size) throws IllegalArgumentException {
+        final String ipAddress = logIpAddress()
+                ? getThreadLocalRequest().getRemoteAddr()
+                : "*";
 
         // Log the event:
         LOGGER.info("Calc event for input with {} characters from IP: {}"
                 , size
-                , getThreadLocalRequest().getRemoteAddr());
+                , ipAddress);
 
         return true;
     }
 
-    /**
-     * Escape an html string. Escaping data received from the client helps to
-     * prevent cross-site script vulnerabilities.
-     *
-     * @param html the html string to escape
-     * @return the escaped string
-     */
-    private String escapeHtml(String html) {
-        if (html == null) {
-            return null;
+    /** Log IP address */
+    private boolean logIpAddress() {
+        boolean result = false;
+        if (Files.isRegularFile(CONFIG_FILE)) {
+            try {
+                try (InputStream stream = Files.newInputStream(CONFIG_FILE)) {
+                    final Properties config = new Properties();
+                    config.load(stream);
+                    result = TRUE.equals(config.getProperty(LOG_IP_ADDRESS_PARAM, null));
+                }
+            } catch (IOException e) {
+                LOGGER.warn("Can't read configuration {}", CONFIG_FILE, e);
+            }
         }
-        return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(
-                ">", "&gt;");
+        return result;
     }
 }
