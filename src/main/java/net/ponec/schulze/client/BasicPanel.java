@@ -44,6 +44,9 @@ import net.ponec.schulze.shared.FieldVerifier;
  */
 public class BasicPanel {
 
+    /** Run without server */
+    public static final boolean OFFLINE = true;
+
     /**
      * The message displayed to the user when the server cannot be reached or
      * returns an error.
@@ -136,7 +139,11 @@ public class BasicPanel {
                 textToServerLabel.setText("action:vote");
                 winnersPanel.setText("");
 
-                logEvent(textToServer);
+                if (OFFLINE) {
+                    onSuccess2(true);
+                } else {
+                    logEvent(textToServer);
+                }
             }
 
             protected void logEvent(String textToServer) {
@@ -153,28 +160,32 @@ public class BasicPanel {
 
                     @Override
                     public void onSuccess(Boolean result) {
-                        final int maxLimit = 30;
-                        final HtmlTools html = new HtmlTools();
-                        try {
-                            dialogBox.setText(messages.voitingResult());
-                            winnersPanel.removeStyleName("serverResponseLabelError");
-                            MultiVoitingMethod<String> res = calculateVoitingResult(voteArea.getText());
-                            Object[][] dataGrid = new Object[][]{
-                                {messages.bySchulzeMethod() + ':', "<strong>" + html.escape(res.getWinnersOfSchulze().toString(maxLimit)) + "</strong>"},
-                                {messages.oneVotingMethod() + ':', html.escape(res.getWinnersOfSingle().toString(maxLimit)) },
-                                {null, null},
-                                {messages.countOfCandidates() + ':', res.getCandidateCount()},
-                                {messages.countOfVotes() + ':', res.getPreferenceCount()}
-                            };
-                            winnersPanel.setHTML(html.printGrid(dataGrid));
-                            dialogBox.center();
-                            closeButton.setFocus(true);
-                        } catch (Exception e) {
-                            errorLabel.setText(e.getMessage());
-                            sendButton.setEnabled(true);
-                        }
+                        onSuccess2(result);
                     }
                 });
+            }
+
+            public void onSuccess2(Boolean result) {
+                final int maxLimit = 30;
+                final HtmlTools html = new HtmlTools();
+                try {
+                    dialogBox.setText(messages.voitingResult());
+                    winnersPanel.removeStyleName("serverResponseLabelError");
+                    MultiVoitingMethod<String> res = calculateVoitingResult(voteArea.getText());
+                    Object[][] dataGrid = new Object[][]{
+                        {messages.bySchulzeMethod() + ':', "<strong>" + html.escape(res.getWinnersOfSchulze().toString(maxLimit)) + "</strong>"},
+                        {messages.oneVotingMethod() + ':', html.escape(res.getWinnersOfSingle().toString(maxLimit)) },
+                        {null, null},
+                        {messages.countOfCandidates() + ':', res.getCandidateCount()},
+                        {messages.countOfVotes() + ':', res.getPreferenceCount()}
+                    };
+                    winnersPanel.setHTML(html.printGrid(dataGrid));
+                    dialogBox.center();
+                    closeButton.setFocus(true);
+                } catch (Exception e) {
+                    errorLabel.setText(e.getMessage());
+                    sendButton.setEnabled(true);
+                }
             }
         }
 
