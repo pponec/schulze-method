@@ -3,7 +3,7 @@
 # Usage: sh /fullpath/deploy.sh
 
 set -e
-DOMAIN="songbook.webfort.net"
+DOMAIN="schulz.webfort.net/"
 PROTOCOL="https"
 
 REMOTEDIR=$(echo $DOMAIN | tr "." "\n" | head -n 1)
