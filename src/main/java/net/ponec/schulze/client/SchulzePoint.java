@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.TabPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class schulze implements EntryPoint {
+public class SchulzePoint implements EntryPoint {
 
     /** Create a remote service proxy to talk to the server-side Log service. */
     private final LogServiceAsync logService = GWT.create(LogService.class);

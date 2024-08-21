@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
  * jUnit tests
  * @author Pavel Ponec
  */
-public class SingleVoteMethodTest {
+public class SinglePlainVoteMethodTest {
 
     /** Common election utils */
     protected final ElectionUtils utils = new ElectionUtils();

@@ -9,7 +9,7 @@
   <extend-property name="locale" values="cs"/>
 
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='net.ponec.schulze.client.schulze' />
+  <entry-point class='net.ponec.schulze.client.SchulzePoint' />
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client' />

@@ -56,7 +56,7 @@ public class ElectionUtils {
 
     /**
      * Preference converter, empty lines are ignored.
-     * @param preferences Multi line type of: A-BC-DEF
+     * @param preferences Multi line type of: `A-BC-DEF` or `9:A-BC-DEF`
      * @return
      */
     public Collection<IPreference<String>> convertToPreferences(String preferences) {
@@ -66,11 +66,16 @@ public class ElectionUtils {
         while (tokenizer.hasMoreElements()) {
             final String vote = tokenizer.nextElement().trim();
             if (!vote.isEmpty()) {
-                final MultiPreference<String> preference = result.get(vote);
+                final PlainVote plainVote = PlainVote.of(vote);
+                final MultiPreference<String> preference = result.get(plainVote.vote);
                 if (preference != null) {
-                    preference.add();
+                    preference.add(plainVote.count);
                 } else {
-                    result.put(vote, MultiPreference.of(convertToPreference(vote)));
+                    final MultiPreference pref = MultiPreference.of(convertToPreference(vote));
+                    if (plainVote.count > 1) {
+                        pref.add(plainVote.count - 1);
+                    }
+                    result.put(vote, pref);
                 }
             }
         }
@@ -102,6 +107,35 @@ public class ElectionUtils {
             }
         }
         return result;
+    }
+
+    private static class PlainVote {
+        public PlainVote(int count, String vote) {
+            this.count = count;
+            this.vote = vote;
+        }
+
+        final int count;
+        final String vote;
+
+        /**
+         * @param textVote Allowed format with a count "9:ASC-DEF"
+         */
+        static PlainVote of(String textVote) {
+            try {
+                final int i = textVote.indexOf(':');
+                if (i > 0) {
+                    int count = Integer.parseInt(textVote.substring(0, i));
+                    String text = textVote.substring(i + 1);
+                    return new PlainVote(count, text);
+                } else {
+                    return new PlainVote(1, textVote);
+                }
+            } catch (Exception e) {
+                return new PlainVote(1, textVote);
+            }
+
+        }
     }
 
 }
