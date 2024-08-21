@@ -8,18 +8,19 @@
     <groupId>ponec.net</groupId>
     <artifactId>schulze</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <name>GWT Schulze</name>
 
     <properties>
         <!-- Convenience property to set the GWT version -->
-        <gwtVersion>2.8.2</gwtVersion>
+        <gwtVersion>2.10.0</gwtVersion>
 
         <!-- GWT needs at least java 1.7 -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.2</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -72,7 +73,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
