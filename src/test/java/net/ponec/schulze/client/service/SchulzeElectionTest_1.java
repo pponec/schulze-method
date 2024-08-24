@@ -36,13 +36,26 @@ public class SchulzeElectionTest_1 {
         SchulzeElection instance = SchulzeElection.of("A-B-C");
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C", instance.getWinners().toString());
+        assertEquals(1, instance.getPreferenceCount());
+        //
+        instance = SchulzeElection.of("10:A-B-C");
+        assertEquals(10, instance.getPreferenceCount());
+        assertEquals("A-B-C", instance.getWinners().toString());
     }
 
     @Test
     public void testGetWinners_2() {
-
         SchulzeElection instance = SchulzeElection.of("C-B-A");
         assertEquals(1, instance.getPreferenceCount());
+        assertEquals("C-B-A", instance.getWinners().toString());
+    }
+
+    @Test
+    public void testGetWinners_2multi() {
+        String preference = "5:C-B-A";
+        SchulzeElection instance = SchulzeElection.of(preference);
+        instance.addPreference(preference);
+        assertEquals(10, instance.getPreferenceCount());
         assertEquals("C-B-A", instance.getWinners().toString());
     }
 

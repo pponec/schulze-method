@@ -63,9 +63,7 @@ public class MultiVoitingMethod<C> extends AbstractVoitingMethod<C>{
         return result;
     }
 
-
-
-    /** Registre a method */
+    /** Register a method */
     protected final void addMethod(final AbstractVoitingMethod method) throws IllegalArgumentException {
         final AbstractVoitingMethod previous = this.methods.put(method.getClass(), method);
         if (previous != null) {
@@ -123,8 +121,5 @@ public class MultiVoitingMethod<C> extends AbstractVoitingMethod<C>{
     public Preference<C> getWinnersOfSingle() {
         return getWinners(SingleVoteMethod.class);
     }
-
-
-
 
   }

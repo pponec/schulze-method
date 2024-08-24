@@ -64,18 +64,17 @@ public class ElectionUtils {
         final SimpleTokenizer tokenizer = new SimpleTokenizer(preferences, "\n\r");
 
         while (tokenizer.hasMoreElements()) {
-            final String vote = tokenizer.nextElement().trim();
-            if (!vote.isEmpty()) {
-                final PlainVote plainVote = PlainVote.of(vote);
+            final PlainVote plainVote = PlainVote.of(tokenizer.nextElement());
+            if (plainVote.isValid()) {
                 final MultiPreference<String> preference = result.get(plainVote.vote);
                 if (preference != null) {
                     preference.add(plainVote.count);
                 } else {
-                    final MultiPreference pref = MultiPreference.of(convertToPreference(vote));
+                    final MultiPreference pref = MultiPreference.of(convertToPreference(plainVote.vote));
                     if (plainVote.count > 1) {
                         pref.add(plainVote.count - 1);
                     }
-                    result.put(vote, pref);
+                    result.put(plainVote.vote, pref);
                 }
             }
         }
@@ -109,32 +108,39 @@ public class ElectionUtils {
         return result;
     }
 
-    private static class PlainVote {
-        public PlainVote(int count, String vote) {
+    public static class PlainVote {
+        private static final PlainVote INVALID = new PlainVote(0, "");
+
+        private PlainVote(int count, String vote) {
             this.count = count;
             this.vote = vote;
         }
 
-        final int count;
-        final String vote;
+        public final int count;
+        public final String vote;
+
+        public boolean isValid() {
+            return count > 0;
+        }
 
         /**
-         * @param textVote Allowed format with a count "9:ASC-DEF"
+         * @param textVoteParam Allowed format with a count "9:ASC-DEF"
          */
-        static PlainVote of(String textVote) {
+        public static PlainVote of(String textVoteParam) {
+            String textVote = textVoteParam == null ? "" : textVoteParam.trim();
+            int count = 1;
             try {
                 final int i = textVote.indexOf(':');
                 if (i > 0) {
-                    int count = Integer.parseInt(textVote.substring(0, i));
-                    String text = textVote.substring(i + 1);
-                    return new PlainVote(count, text);
-                } else {
-                    return new PlainVote(1, textVote);
+                    count = Integer.parseInt(textVote.substring(0, i));
+                    textVote = textVote.substring(i + 1);
                 }
+                return (textVote.isEmpty() || count < 1)
+                            ? INVALID
+                            : new PlainVote(count, textVote);
             } catch (Exception e) {
                 return new PlainVote(1, textVote);
             }
-
         }
     }
 

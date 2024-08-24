@@ -61,10 +61,13 @@ public class SchulzeElection extends CommonElection<String> {
         return this;
     }
 
-    /** Single line type of: A-BC-DEF */
+    /** Single line type of: `A-BC-DEF` or `8:A-BC-DEF`  */
     public void addPreference(final String preference) {
-        if (!preference.isEmpty()) {
-            addPreference(utils.convertToPreference(preference));
+        ElectionUtils.PlainVote plainVote = ElectionUtils.PlainVote.of(preference);
+        if (plainVote.isValid()) {
+            for (int i = 0, max = plainVote.count; i < max; i++) {
+                addPreference(utils.convertToPreference(plainVote.vote));
+            }
         }
     }
 
