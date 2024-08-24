@@ -30,6 +30,8 @@ import net.ponec.schulze.client.service.domain.Preference;
 public class MultiVoitingMethod<C> extends AbstractVoitingMethod<C>{
 
     private final HashMap<Class<? extends AbstractVoitingMethod>, AbstractVoitingMethod> methods;
+
+    /** The first Schulze method */
     private AbstractVoitingMethod firstMethod = null;
 
     public MultiVoitingMethod(Set<AbstractVoitingMethod> methods) {
@@ -70,6 +72,9 @@ public class MultiVoitingMethod<C> extends AbstractVoitingMethod<C>{
             throw new IllegalArgumentException("The method type is duplicated: " + method.getClass());
         }
         if (firstMethod == null) {
+            firstMethod = method;
+        }
+        if (method instanceof SchulzeMethod) {
             firstMethod = method;
         }
     }
