@@ -15,7 +15,7 @@
  */
 package net.ponec.schulze.client.service;
 
-import net.ponec.schulze.client.service.method.SchulzeComparator;
+import net.ponec.schulze.client.service.tools.SchulzeComparator;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

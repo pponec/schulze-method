@@ -27,6 +27,35 @@ some results are compared with a real samples from wiki.
 You can use also the next link to the live application with an english language:
 [http://schulz.webfort.cz?locale=en](http://schulz.webfort.cz?locale=en)
 
+## Demo data
+
+Data input
+
+```text
+A-B-C
+A-C-B
+A-C
+B-C
+C-B
+B-C
+C-B
+```
+
+calculates the result:
+
+```text
+By Schulze method: C-B-A
+Only one choice..: A-BC
+Number of candidates: 3
+Number of valid votes: 7
+```
+
+Optionally, for each vote, the number of voters who share the same choice can be added, the leading number is separated by a colon. 
+Example:
+
+```text
+7:A-B-C
+```
 
 ## Application license
 

@@ -35,8 +35,8 @@ import java.util.List;
 import net.ponec.schulze.client.service.CommonElection;
 import net.ponec.schulze.client.service.domain.IPreference;
 import net.ponec.schulze.client.service.method.AbstractVoitingMethod;
-import net.ponec.schulze.client.service.method.ElectionUtils;
-import net.ponec.schulze.client.service.method.MultiVoitingMethod;
+import net.ponec.schulze.client.service.tools.ElectionUtils;
+import net.ponec.schulze.client.service.method.CompositeVotingMethod;
 import net.ponec.schulze.shared.FieldVerifier;
 
 /**
@@ -158,7 +158,7 @@ public class QuickPanel {
                         try {
                             dialogBox.setText(messages.voitingResult());
                             winnersPanel.removeStyleName("serverResponseLabelError");
-                            MultiVoitingMethod<String> res = calculateVoitingResult(voteArea.getText());
+                            CompositeVotingMethod<String> res = calculateVoitingResult(voteArea.getText());
                             Object[][] dataGrid = new Object[][]{
                                 {messages.bySchulzeMethod() + ':', "<strong>" + html.escape(res.getWinnersOfSchulze().toString(maxLimit)) + "</strong>"},
                                 {messages.oneVotingMethod() + ':', html.escape(res.getWinnersOfSingle().toString(maxLimit)) },
@@ -232,7 +232,7 @@ public class QuickPanel {
     }
 
     /** Voiting results */
-    private MultiVoitingMethod<String> calculateVoitingResult(String preferences) {
+    private CompositeVotingMethod<String> calculateVoitingResult(String preferences) {
         return createMultiElection(preferences, true).getMethod();
     }
 
@@ -271,7 +271,7 @@ public class QuickPanel {
         final ElectionUtils utils = new ElectionUtils();
         final Collection<IPreference<String>> prefs = utils.convertToPreferences(preferences);
         final Collection<String> candidates = utils.createCandidates(prefs);
-        final AbstractVoitingMethod<String> method = new MultiVoitingMethod<>(candidates);
+        final AbstractVoitingMethod<String> method = new CompositeVotingMethod<>(candidates);
         final CommonElection<String> result = new CommonElection<>(method);
 
         if (addPreference) {

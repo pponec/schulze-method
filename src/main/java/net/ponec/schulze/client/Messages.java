@@ -70,10 +70,10 @@ public interface Messages extends com.google.gwt.i18n.client.Messages {
     @DefaultMessage("Number of valid votes")
     String countOfVotes();
 
-    @DefaultMessage("On-line calculator is used to calculate the winner of the election"
+    @DefaultMessage("On-line calculator (v{0}) is used to calculate the winner of the election"
             + " Schulze method where a detailed description of the method"
-            + " <a target=''_blank'' href=''{0}''>is here</a> .")
-    String helpMessage1(String url);
+            + " <a target=''_blank'' href=''{1}''>is here</a> .")
+    String helpMessage1(String version, String url);
 
     @DefaultMessage("To use: Assemble the offer candidates and assign each of them one character."
             + " Each voter then writes to form their preferences on one line, where the first give"
