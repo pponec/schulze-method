@@ -18,7 +18,8 @@ package net.ponec.schulze.client.service;
 import java.util.Collection;
 import java.util.Set;
 import net.ponec.schulze.client.service.domain.IPreference;
-import net.ponec.schulze.client.service.method.ElectionUtils;
+import net.ponec.schulze.client.service.tools.ElectionUtils;
+import net.ponec.schulze.client.service.tools.PlainVote;
 import net.ponec.schulze.client.service.tools.SimpleTokenizer;
 
 /**
@@ -61,9 +62,9 @@ public class SchulzeElection extends CommonElection<String> {
         return this;
     }
 
-    /** Single line type of: `A-BC-DEF` or `8:A-BC-DEF`  */
+    /** Single line type of: `A-BC-DEF` or `8:A-BC-DEF` */
     public void addPreference(final String preference) {
-        ElectionUtils.PlainVote plainVote = ElectionUtils.PlainVote.of(preference);
+        PlainVote plainVote = PlainVote.of(preference);
         if (plainVote.isValid()) {
             for (int i = 0, max = plainVote.count; i < max; i++) {
                 addPreference(utils.convertToPreference(plainVote.vote));

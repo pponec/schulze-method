@@ -23,18 +23,18 @@ import net.ponec.schulze.client.service.domain.IPreference;
 import net.ponec.schulze.client.service.domain.Preference;
 
 /**
- * Multi - method.
+ * Composite voting method
  * @author Pavel Ponec
  * @see https://en.wikipedia.org/wiki/Schulze_method
  */
-public class MultiVoitingMethod<C> extends AbstractVoitingMethod<C>{
+public class CompositeVotingMethod<C> extends AbstractVoitingMethod<C>{
 
     private final HashMap<Class<? extends AbstractVoitingMethod>, AbstractVoitingMethod> methods;
 
     /** The first Schulze method */
     private AbstractVoitingMethod firstMethod = null;
 
-    public MultiVoitingMethod(Set<AbstractVoitingMethod> methods) {
+    public CompositeVotingMethod(Set<AbstractVoitingMethod> methods) {
         this.methods = new HashMap(methods.size());
         for (AbstractVoitingMethod method : methods) {
             addMethod(method);
@@ -42,7 +42,7 @@ public class MultiVoitingMethod<C> extends AbstractVoitingMethod<C>{
         checkNoEmptySize();
     }
 
-    public MultiVoitingMethod(AbstractVoitingMethod ... methods) {
+    public CompositeVotingMethod(AbstractVoitingMethod ... methods) {
         this.methods = new HashMap(methods.length);
         for (AbstractVoitingMethod method : methods) {
             addMethod(method);
@@ -51,7 +51,7 @@ public class MultiVoitingMethod<C> extends AbstractVoitingMethod<C>{
     }
 
     /** New instance for all internal methods */
-    public MultiVoitingMethod(Collection<C> candidateCollection) {
+    public CompositeVotingMethod(Collection<C> candidateCollection) {
         this(createFullSet(candidateCollection));
     }
 

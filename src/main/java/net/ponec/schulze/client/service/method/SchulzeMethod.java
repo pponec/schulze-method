@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Set;
 import net.ponec.schulze.client.service.domain.IPreference;
 import net.ponec.schulze.client.service.domain.Preference;
+import net.ponec.schulze.client.service.tools.SchulzeComparator;
+
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 

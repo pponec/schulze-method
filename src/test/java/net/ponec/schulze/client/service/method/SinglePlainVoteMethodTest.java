@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import net.ponec.schulze.client.service.domain.Preference;
+import net.ponec.schulze.client.service.tools.ElectionUtils;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 

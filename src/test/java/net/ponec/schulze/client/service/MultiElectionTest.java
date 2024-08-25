@@ -18,8 +18,8 @@ package net.ponec.schulze.client.service;
 import java.util.Collection;
 import net.ponec.schulze.client.service.domain.IPreference;
 import net.ponec.schulze.client.service.method.AbstractVoitingMethod;
-import net.ponec.schulze.client.service.method.ElectionUtils;
-import net.ponec.schulze.client.service.method.MultiVoitingMethod;
+import net.ponec.schulze.client.service.tools.ElectionUtils;
+import net.ponec.schulze.client.service.method.CompositeVotingMethod;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -39,7 +39,7 @@ public class MultiElectionTest {
         System.out.println("getWinners");
 
         CommonElection<String> instance = createElection("A-B-C");
-        MultiVoitingMethod<String> method = instance.getMethod();
+        CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C", method.getWinnersOfSchulze().toString());
         assertEquals("A-B-C", method.getWinnersOfFiner().toString());
@@ -50,7 +50,7 @@ public class MultiElectionTest {
     public void testGetWinners_2() {
 
         CommonElection<String> instance = createElection("C-B-A");
-        MultiVoitingMethod<String> method = instance.getMethod();
+        CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("C-B-A", method.getWinnersOfSchulze().toString());
         assertEquals("C-B-A", method.getWinnersOfFiner().toString());
@@ -60,7 +60,7 @@ public class MultiElectionTest {
     @Test
     public void testGetWinners_3() {
         CommonElection<String> instance = createElection("C-B-A");
-        MultiVoitingMethod<String> method = instance.getMethod();
+        CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("C-B-A", method.getWinnersOfSchulze().toString());
         assertEquals("C-B-A", method.getWinnersOfFiner().toString());
@@ -70,7 +70,7 @@ public class MultiElectionTest {
     @Test
     public void testGetWinners_4() {
         CommonElection<String> instance = createElection("ABC");
-        MultiVoitingMethod<String> method = instance.getMethod();
+        CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("ABC", method.getWinnersOfSchulze().toString());
         assertEquals("ABC", method.getWinnersOfFiner().toString());
@@ -80,7 +80,7 @@ public class MultiElectionTest {
     @Test
     public void testGetWinners_5() {
         CommonElection<String> instance = createElection("A-BC");
-        MultiVoitingMethod<String> method = instance.getMethod();
+        CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-BC", method.getWinnersOfSchulze().toString());
         assertEquals("A-BC", method.getWinnersOfFiner().toString());
@@ -93,7 +93,7 @@ public class MultiElectionTest {
                 "C",
                 "B",
                 "A");
-        MultiVoitingMethod<String> method = instance.getMethod();
+        CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(3, instance.getPreferenceCount());
         assertEquals("CBA", method.getWinnersOfSchulze().toString());
         assertEquals("CBA", method.getWinnersOfFiner().toString());
@@ -103,7 +103,7 @@ public class MultiElectionTest {
     @Test
     public void testGetWinners_7() {
         CommonElection<String> instance = createElection("A-B-C");
-        MultiVoitingMethod<String> method = instance.getMethod();
+        CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C", method.getWinnersOfSchulze().toString());
         assertEquals("A-B-C", method.getWinnersOfFiner().toString());
@@ -120,7 +120,7 @@ public class MultiElectionTest {
                 "B-C",
                 "C-B",
                 "C-B");
-        MultiVoitingMethod<String> method = instance.getMethod();
+        CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(7, instance.getPreferenceCount());
         assertEquals("C-B-A", method.getWinnersOfSchulze().toString());
         assertEquals("C-B-A", method.getWinnersOfFiner().toString());
@@ -133,7 +133,7 @@ public class MultiElectionTest {
                 "A-B-C-DE-F-GH-IJ-K-LM-N-O-P-QR-ST",
                 "T-S-R-Q-PO-NMLKJIH-GFED-CBA");
 
-        MultiVoitingMethod<String> method = instance.getMethod();
+        CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(2, instance.getPreferenceCount());
         assertEquals("ADEHORT-BFIJPQS-CGK-LM-N", method.getWinnersOfSchulze().toString());
         assertEquals("ADEHORT-BIJPQS-CF-K-GLM-N", method.getWinnersOfFiner().toString());
@@ -153,7 +153,7 @@ public class MultiElectionTest {
     private static CommonElection<String> createElection(String preferences, boolean addPreference) {
         final Collection<IPreference<String>> prefs = utils.convertToPreferences(preferences);
         final Collection<String> candidates = utils.createCandidates(prefs);
-        final AbstractVoitingMethod<String> method = new MultiVoitingMethod<>(candidates);
+        final AbstractVoitingMethod<String> method = new CompositeVotingMethod<>(candidates);
         final CommonElection<String> result = new CommonElection<>(method);
 
         if (addPreference) {

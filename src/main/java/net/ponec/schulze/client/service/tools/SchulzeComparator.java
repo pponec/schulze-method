@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.ponec.schulze.client.service.method;
+package net.ponec.schulze.client.service.tools;
 
 import java.util.Comparator;
 
