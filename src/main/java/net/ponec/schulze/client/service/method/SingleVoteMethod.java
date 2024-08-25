@@ -77,14 +77,7 @@ public class SingleVoteMethod<C> extends AbstractVoitingMethod<C> {
     public Preference<C> getWinners() {
         final Preference<C> result = new Preference();
         final List<Envelope> sorted = new ArrayList<>(candidates);
-        Collections.sort(sorted, new Comparator<Envelope>() {
-            @Override public int compare(final Envelope o1, final Envelope o2) {
-                if (o1.i < o2.i) {
-                    return 1;
-                }
-                return o1.i > o2.i ? -1 : 0;
-            }
-        });
+        Collections.sort(sorted, (o1, o2) -> Integer.compare(o2.i, o1.i));
 
         int lastCount = 0;
         for (Envelope envelope : sorted) {

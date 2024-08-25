@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabPanel;
+import static net.ponec.schulze.client.service.Constants.VERSION;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -62,7 +63,7 @@ public class SchulzePoint implements EntryPoint {
     private HTML createHelp() {
         String wikiUrl = "https://en.wikipedia.org/wiki/Schulze_method";
         String content
-                = "<p>" + messages.helpMessage1(wikiUrl) + "</p>"
+                = "<p>" + messages.helpMessage1(VERSION, wikiUrl) + "</p>"
                 + "<p>" + messages.helpMessage2() + "</p>"
                 + "<p>" + messages.helpMessage3() + "</p>"
                 ;
