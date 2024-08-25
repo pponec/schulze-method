@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,8 @@ public class MultiElectionTest {
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C", method.getWinnersOfSchulze().toString());
         assertEquals("A-B-C", method.getWinnersOfFiner().toString());
-        assertEquals("A-BC", method.getWinnersOfSingle().toString());
+        assertEquals("A-B-C", method.getWinnersOfBorda().toString());
+        assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
 
     @Test
@@ -54,7 +55,8 @@ public class MultiElectionTest {
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("C-B-A", method.getWinnersOfSchulze().toString());
         assertEquals("C-B-A", method.getWinnersOfFiner().toString());
-        assertEquals("C-BA", method.getWinnersOfSingle().toString());
+        assertEquals("C-B-A", method.getWinnersOfBorda().toString());
+        assertEquals("C-BA", method.getWinnersOfPreferencePlurality().toString());
     }
 
     @Test
@@ -64,7 +66,8 @@ public class MultiElectionTest {
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("C-B-A", method.getWinnersOfSchulze().toString());
         assertEquals("C-B-A", method.getWinnersOfFiner().toString());
-        assertEquals("C-BA", method.getWinnersOfSingle().toString());
+        assertEquals("C-B-A", method.getWinnersOfBorda().toString());
+        assertEquals("C-BA", method.getWinnersOfPreferencePlurality().toString());
     }
 
     @Test
@@ -74,7 +77,8 @@ public class MultiElectionTest {
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("ABC", method.getWinnersOfSchulze().toString());
         assertEquals("ABC", method.getWinnersOfFiner().toString());
-        assertEquals("A-BC", method.getWinnersOfSingle().toString());
+        assertEquals("ABC", method.getWinnersOfBorda().toString());
+        assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
 
     @Test
@@ -84,7 +88,8 @@ public class MultiElectionTest {
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-BC", method.getWinnersOfSchulze().toString());
         assertEquals("A-BC", method.getWinnersOfFiner().toString());
-        assertEquals("A-BC", method.getWinnersOfSingle().toString());
+        assertEquals("A-BC", method.getWinnersOfBorda().toString());
+        assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
 
     @Test
@@ -97,7 +102,8 @@ public class MultiElectionTest {
         assertEquals(3, instance.getPreferenceCount());
         assertEquals("CBA", method.getWinnersOfSchulze().toString());
         assertEquals("CBA", method.getWinnersOfFiner().toString());
-        assertEquals("CBA", method.getWinnersOfSingle().toString());
+        assertEquals("ABC", method.getWinnersOfBorda().toString());
+        assertEquals("CBA", method.getWinnersOfPreferencePlurality().toString());
     }
 
     @Test
@@ -107,7 +113,8 @@ public class MultiElectionTest {
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C", method.getWinnersOfSchulze().toString());
         assertEquals("A-B-C", method.getWinnersOfFiner().toString());
-        assertEquals("A-BC", method.getWinnersOfSingle().toString());
+        assertEquals("A-B-C", method.getWinnersOfBorda().toString());
+        assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
 
     @Test
@@ -124,9 +131,11 @@ public class MultiElectionTest {
         assertEquals(7, instance.getPreferenceCount());
         assertEquals("C-B-A", method.getWinnersOfSchulze().toString());
         assertEquals("C-B-A", method.getWinnersOfFiner().toString());
-        assertEquals("A-BC", method.getWinnersOfSingle().toString());
+        assertEquals("C-B-A", method.getWinnersOfBorda().toString());
+        assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
 
+    /** Different result of the BordaCount method (!)  */
    @Test
     public void testGetWinners_B() {
         CommonElection<String> instance = createElection(
@@ -137,7 +146,78 @@ public class MultiElectionTest {
         assertEquals(2, instance.getPreferenceCount());
         assertEquals("ADEHORT-BFIJPQS-CGK-LM-N", method.getWinnersOfSchulze().toString());
         assertEquals("ADEHORT-BIJPQS-CF-K-GLM-N", method.getWinnersOfFiner().toString());
-        assertEquals("AT-BCDEFGHIJKLMNOPQRS", method.getWinnersOfSingle().toString());
+        assertEquals("A-B-CDE-FH-GIJ-K-LMT...", method.getWinnersOfBorda().toString());
+        assertEquals("AT-BCDEFGHIJKLMNOPQRS", method.getWinnersOfPreferencePlurality().toString());
+    }
+
+    /** Different result of the BordaCount method (!)  */
+    @Test
+    public void testGetWinners_9() {
+        CommonElection<String> instance = createElection(
+                "A-B-C-DE",
+                "GFED-CBA");
+
+        CompositeVotingMethod<String> method = instance.getMethod();
+        assertEquals(2, instance.getPreferenceCount());
+        assertEquals("ADE-BGF-C", method.getWinnersOfSchulze().toString());
+        assertEquals("ADE-B-CGF", method.getWinnersOfFiner().toString());
+        assertEquals("A-B-CDE-FG", method.getWinnersOfBorda().toString());
+        assertEquals("AG-BCDEF", method.getWinnersOfPreferencePlurality().toString());
+    }
+
+    /** Different result of the BordaCount method (!)  */
+    @Test
+    public void testGetWinners_10() {
+        CommonElection<String> instance = createElection(
+                "A-B",
+                "E-AB");
+
+        CompositeVotingMethod<String> method = instance.getMethod();
+        assertEquals(2, instance.getPreferenceCount());
+        assertEquals("AE-B", method.getWinnersOfSchulze().toString());
+        assertEquals("AE-B", method.getWinnersOfFiner().toString());
+        assertEquals("A-EB", method.getWinnersOfBorda().toString());
+        assertEquals("AE-B", method.getWinnersOfPreferencePlurality().toString());
+    }
+
+    /** Different result of the BordaCount method (!)
+     * Sample from the <a href="https://electionbuddy.com/borda-count/">electionbuddy.com</a> page. */
+    @Test
+    public void testGetWinners_11() {
+        String ballot = String.join("\n", ""
+                        , "A-B-C-D"
+                        , "C-B-D-A"
+                        , "B-C-A-D"
+                        , "A-C-B-D"
+        );
+        CommonElection<String> instance = createElection(ballot);
+        CompositeVotingMethod<String> method = instance.getMethod();
+        assertEquals(4, instance.getPreferenceCount());
+        assertEquals("ABC-D", method.getWinnersOfSchulze().toString());
+        assertEquals("ABC-D", method.getWinnersOfFiner().toString());
+        assertEquals("BC-A-D", method.getWinnersOfBorda().toString());
+        assertEquals("A-BC-D", method.getWinnersOfPreferencePlurality().toString());
+    }
+
+    /** Source: https://cs.wikipedia.org/wiki/Schulzeho_metoda#:~:text=Schulzeho%20metoda%20je%20volebn%C3%AD%20syst%C3%A9m,rozhodovalo%20jen%20mezi%20nimi%20dv%C4%9Bma.*/
+    @Test
+    public void wikipediaTest() {
+        String ballot = String.join("\n", ""
+                , "5:A-C-B-E-D"
+                , "5:A-D-E-C-B"
+                , "8:B-E-D-A-C"
+                , "3:C-A-B-E-D"
+                , "7:C-A-E-B-D"
+                , "2:C-B-A-D-E"
+                , "7:D-C-E-B-A"
+                , "8:E-B-A-D-C"
+        );
+        CommonElection<String> instance = createElection(ballot);
+        CompositeVotingMethod<String> method = instance.getMethod();
+        assertEquals(45, instance.getPreferenceCount());
+        assertEquals("E-A-C-B-D", method.getWinnersOfSchulze().toString());
+        assertEquals("E-A-B-C-D", method.getWinnersOfBorda().toString());
+        assertEquals("C-A-BE-D", method.getWinnersOfPreferencePlurality().toString());
     }
 
     // ------- Help Methods -------

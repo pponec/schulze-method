@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * A preference ticket. The class have got implemented
+ * A preference ticket of the one voter. The class have got implemented
  * {@link #equals(java.lang.Object) } and {@link #hashCode} methods.
  * @author Pavel Ponec
  */

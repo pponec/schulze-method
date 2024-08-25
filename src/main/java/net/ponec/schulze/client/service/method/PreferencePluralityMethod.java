@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package net.ponec.schulze.client.service.method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import net.ponec.schulze.client.service.domain.IPreference;
 import net.ponec.schulze.client.service.domain.Preference;
@@ -27,7 +26,7 @@ import net.ponec.schulze.client.service.domain.Preference;
  * Method of the single vote per voter.
  * @author Pavel Ponec
  */
-public class SingleVoteMethod<C> extends AbstractVoitingMethod<C> {
+public class PreferencePluralityMethod<C> extends AbstractVoitingMethod<C> {
 
     /** Candidates */
     private final List<Envelope> candidates;
@@ -36,7 +35,7 @@ public class SingleVoteMethod<C> extends AbstractVoitingMethod<C> {
     private int preferenceCount = 0;
 
     @SuppressWarnings("unchecked")
-    public SingleVoteMethod(Collection<C> candidateCollection) {
+    public PreferencePluralityMethod(Collection<C> candidateCollection) {
         this.candidates = new ArrayList<>(candidateCollection.size());
 
         for (C c : candidateCollection) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import net.ponec.schulze.client.service.domain.Preference;
  */
 public abstract class AbstractVoitingMethod<C> {
 
-    /** The number of electoral votes */
+    /** The number of electoral votes (number of active voters) */
     public abstract int getPreferenceCount();
 
     /** The number of candidates */

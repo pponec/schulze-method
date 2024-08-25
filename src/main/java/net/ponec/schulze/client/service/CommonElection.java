@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import net.ponec.schulze.client.service.method.SchulzeMethod;
 
 /**
  * Election using the Schulze method
- * @author Pavel Ponec
+ * @param <C> The String, for example.
  */
 public class CommonElection<C> {
 

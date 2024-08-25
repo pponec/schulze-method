@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * A preference ticket for a many voters.
+ * A preference ticket for a <strong>more voters<strong/>.
  * @author Pavel Ponec
  */
 public final class MultiPreference<C> implements IPreference<C> {

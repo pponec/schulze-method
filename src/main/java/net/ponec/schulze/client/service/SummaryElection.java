@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,20 @@
  */
 package net.ponec.schulze.client.service;
 
-import java.util.Collection;
-import java.util.Set;
 import net.ponec.schulze.client.service.domain.IPreference;
+import net.ponec.schulze.client.service.method.BordaCountVoteMethod;
 import net.ponec.schulze.client.service.tools.ElectionUtils;
 import net.ponec.schulze.client.service.tools.PlainVote;
 import net.ponec.schulze.client.service.tools.SimpleTokenizer;
+
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * An election by the Schulze method
  * @author Pavel Ponec
  */
-public class SchulzeElection extends CommonElection<String> {
+public class SummaryElection extends CommonElection<String> {
 
     /** Common election utils */
     protected final ElectionUtils utils = new ElectionUtils();
@@ -35,15 +37,15 @@ public class SchulzeElection extends CommonElection<String> {
      * Constructor
      * @param candidates All candidates
      */
-    public SchulzeElection(Collection<String> candidates) {
-        super(candidates);
+    public SummaryElection(Collection<String> candidates) {
+        super(new BordaCountVoteMethod<>(candidates));
     }
 
     /**
      * Constructor
      * @param candidates All candidates (multiLine)
      */
-    public SchulzeElection(String candidates) {
+    public SummaryElection(String candidates) {
         super(convert(candidates));
     }
 
@@ -54,7 +56,7 @@ public class SchulzeElection extends CommonElection<String> {
     }
 
     /** Many lines type of: A-BC-DEF */
-    public SchulzeElection setPreferences(final String preferences) {
+    public SummaryElection setPreferences(final String preferences) {
         final SimpleTokenizer st = new SimpleTokenizer(preferences, "\r\n");
         while (st.hasMoreElements()) {
             addPreference(st.nextElement().trim());
@@ -80,11 +82,11 @@ public class SchulzeElection extends CommonElection<String> {
     // ------ Static methods -----
 
     /** Create election from all preferences */
-    public static SchulzeElection of(String preferences) {
+    public static SummaryElection of(String preferences) {
         final ElectionUtils utils = new ElectionUtils();
         final Collection<IPreference<String>> prefs = utils.convertToPreferences(preferences);
         final Set<String> candidates = utils.createCandidates(prefs);
-        final SchulzeElection result = new SchulzeElection(candidates);
+        final SummaryElection result = new SummaryElection(candidates);
         result.addPreferences(prefs);
         return result;
     }

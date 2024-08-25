@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabPanel;
+import static net.ponec.schulze.client.service.Constants.HOME_PAGE;
 import static net.ponec.schulze.client.service.Constants.VERSION;
 
 /**
@@ -64,7 +65,7 @@ public class SchulzePoint implements EntryPoint {
         String wikiUrl = "https://en.wikipedia.org/wiki/Schulze_method";
         String content
                 = "<p>" + messages.helpMessage1(VERSION, wikiUrl) + "</p>"
-                + "<p>" + messages.helpMessage2() + "</p>"
+                + "<p>" + messages.helpMessage2(HOME_PAGE) + "</p>"
                 + "<p>" + messages.helpMessage3() + "</p>"
                 ;
         return new HTML(content);
