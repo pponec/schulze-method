@@ -23,8 +23,9 @@ public class PlainVote {
         int count = 1;
         try {
             final int i = textVote.indexOf(':');
-            if (i > 0) {
-                count = Integer.parseInt(textVote.substring(0, i));
+            if (i >= 0) {
+                String itext = textVote.substring(0, i);
+                count = itext.isEmpty() ? 1 : Integer.parseInt(itext);
                 textVote = textVote.substring(i + 1);
             }
             return (textVote.isEmpty() || count < 1)

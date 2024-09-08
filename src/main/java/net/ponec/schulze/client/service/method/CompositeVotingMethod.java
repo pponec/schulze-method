@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,14 +42,6 @@ public class CompositeVotingMethod<C> extends AbstractVoitingMethod<C>{
         checkNoEmptySize();
     }
 
-    public CompositeVotingMethod(AbstractVoitingMethod ... methods) {
-        this.methods = new HashMap(methods.length);
-        for (AbstractVoitingMethod method : methods) {
-            addMethod(method);
-        }
-        checkNoEmptySize();
-    }
-
     /** New instance for all internal methods */
     public CompositeVotingMethod(Collection<C> candidateCollection) {
         this(createFullSet(candidateCollection));
@@ -60,7 +52,8 @@ public class CompositeVotingMethod<C> extends AbstractVoitingMethod<C>{
         final Set<AbstractVoitingMethod> result = new LinkedHashSet<>();
         result.add(new SchulzeMethod(candidateCollection));
         result.add(new FinerSchulzeMethod(candidateCollection));
-        result.add(new SingleVoteMethod(candidateCollection));
+        result.add(new BordaCountVoteMethod(candidateCollection));
+        result.add(new PreferencePluralityMethod(candidateCollection));
 
         return result;
     }
@@ -123,8 +116,12 @@ public class CompositeVotingMethod<C> extends AbstractVoitingMethod<C>{
         return getWinners(FinerSchulzeMethod.class);
     }
 
-    public Preference<C> getWinnersOfSingle() {
-        return getWinners(SingleVoteMethod.class);
+    public Preference<C> getWinnersOfBorda() {
+        return getWinners(BordaCountVoteMethod.class);
+    }
+
+    public Preference<C> getWinnersOfPreferencePlurality() {
+        return getWinners(PreferencePluralityMethod.class);
     }
 
   }

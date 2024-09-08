@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,39 +15,52 @@
  */
 package net.ponec.schulze.client.service.method;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import net.ponec.schulze.client.service.domain.Preference;
 import net.ponec.schulze.client.service.tools.ElectionUtils;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
  * jUnit tests
  * @author Pavel Ponec
  */
-public class SinglePlainVoteMethodTest {
+public class BordaCountVoteMethodTest {
 
     /** Common election utils */
     protected final ElectionUtils utils = new ElectionUtils();
 
    /**
-     * Test of sort method, of class SchulzeMethod.
-     */
+    * Test of sort method, of class BourdaCount.
+    * <pre>
+    *  A| B| C
+    *  1| 2| 3
+    *  1| 3| 2
+    *  1| 3| 2
+    *  3| 1| 2
+    *  3| 1| 2
+    *  3| 2| 1
+    *  3| 2| 1
+    * 15|14|13|SUMA
+    * </pre>
+    */
     @Test
     public void testGetWinners() {
         System.out.println("testGetWinners");
-        Collection<String> candidates = createCandidates('A','B','C');
-        SingleVoteMethod<String> instance = new SingleVoteMethod<>(candidates);
-        String expResult = "A-BC";
+        Collection<String> candidates = createCandidates('C','B','A');
+        BordaCountVoteMethod<String> instance = new BordaCountVoteMethod<>(candidates);
+        String expResult = "C-B-A";
 
         instance.addPreference(createPreference("A-B-C"));
         instance.addPreference(createPreference("A-C-B"));
         instance.addPreference(createPreference("A-C"));
         instance.addPreference(createPreference("B-C"));
-        instance.addPreference(createPreference("C-B"));
         instance.addPreference(createPreference("B-C"));
+        instance.addPreference(createPreference("C-B"));
         instance.addPreference(createPreference("C-B"));
 
         assertEquals(3, instance.getCandidateCount());

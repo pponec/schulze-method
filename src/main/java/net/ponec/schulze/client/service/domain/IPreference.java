@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,10 @@ import java.util.Set;
  */
 public interface IPreference <C> {
 
-    /** Returns all candidates in order to lower preference */
+    /** Returns all candidate sets in order to lower preference */
     public Collection<Set<C>> getCandidates();
 
-    /** Quantity of the candidates */
+    /** Number of preferential candidate sets. */
     public int getCount();
 
     /** Base preference */

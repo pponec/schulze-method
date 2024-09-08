@@ -11,7 +11,7 @@ PDIR=$(dirname $0)
 MSG=FAILED
 cd $PDIR
 
-sh mvnw clean install -DskipTests
+sh mvnw clean install
 rsync -v target/*.war ponec@webfort:/home/tomcat/webapps/gwt/ROOT.war
 msg="$PROTOCOL://$DOMAIN/"
 

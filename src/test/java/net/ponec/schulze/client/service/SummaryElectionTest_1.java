@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,37 +15,40 @@
  */
 package net.ponec.schulze.client.service;
 
-import java.util.Arrays;
 import net.ponec.schulze.client.service.tools.SchulzeComparator;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
- * SchulzeElection test
+ * SummaryElection test
  * @author Pavel Ponec
  */
-public class SchulzeElectionTest_1 {
+public class SummaryElectionTest_1 {
 
     /**
-     * Test of getWinners method, of class SchulzeElection.
+     * Test of getWinners method, of class SummaryElection.
      */
     @Test
     public void testGetWinners() {
         System.out.println("getWinners");
 
-        SchulzeElection instance = SchulzeElection.of("A-B-C");
+        SummaryElection instance = SummaryElection.of("A-B-C");
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C", instance.getWinners().toString());
         assertEquals(1, instance.getPreferenceCount());
         //
-        instance = SchulzeElection.of("10:A-B-C");
+        instance = SummaryElection.of("10:A-B-C");
         assertEquals(10, instance.getPreferenceCount());
         assertEquals("A-B-C", instance.getWinners().toString());
     }
 
     @Test
     public void testGetWinners_2() {
-        SchulzeElection instance = SchulzeElection.of("C-B-A");
+        SummaryElection instance = SummaryElection.of("C-B-A");
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("C-B-A", instance.getWinners().toString());
     }
@@ -53,7 +56,7 @@ public class SchulzeElectionTest_1 {
     @Test
     public void testGetWinners_2multi() {
         String preference = "5:C-B-A";
-        SchulzeElection instance = SchulzeElection.of(preference);
+        SummaryElection instance = SummaryElection.of(preference);
         instance.addPreference(preference);
         assertEquals(10, instance.getPreferenceCount());
         assertEquals("C-B-A", instance.getWinners().toString());
@@ -61,7 +64,7 @@ public class SchulzeElectionTest_1 {
 
     @Test
     public void testGetWinners_3() {
-        SchulzeElection instance = new SchulzeElection("A-B-C");
+        SummaryElection instance = new SummaryElection("A-B-C");
         instance.addPreference("C-B-A");
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("C-B-A", instance.getWinners().toString());
@@ -69,21 +72,21 @@ public class SchulzeElectionTest_1 {
 
     @Test
     public void testGetWinners_4() {
-        SchulzeElection instance = SchulzeElection.of("ABC");
+        SummaryElection instance = SummaryElection.of("ABC");
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("ABC", instance.getWinners().toString());
     }
 
     @Test
     public void testGetWinners_5() {
-        SchulzeElection instance = SchulzeElection.of("A-BC");
+        SummaryElection instance = SummaryElection.of("A-BC");
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-BC", instance.getWinners().toString());
     }
 
     @Test
     public void testGetWinners_6() {
-        SchulzeElection instance = new SchulzeElection("ABC");
+        SummaryElection instance = new SummaryElection("ABC");
         instance.addPreference("C");
         instance.addPreference("B");
         instance.addPreference("A");
@@ -93,14 +96,14 @@ public class SchulzeElectionTest_1 {
 
     @Test
     public void testGetWinners_7() {
-        SchulzeElection instance = SchulzeElection.of("A-B-C");
+        SummaryElection instance = SummaryElection.of("A-B-C");
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C", instance.getWinners().toString());
     }
 
     @Test
     public void testGetWinners_81() {
-        SchulzeElection instance = new SchulzeElection("ABC");
+        SummaryElection instance = new SummaryElection("ABC");
         instance.addPreference("A-B-C");
         instance.addPreference("A-C-B");
         instance.addPreference("A-C");
@@ -115,7 +118,7 @@ public class SchulzeElectionTest_1 {
 
     @Test
     public void testGetWinners_82() {
-        SchulzeElection instance = new SchulzeElection("ABC");
+        SummaryElection instance = new SummaryElection("ABC");
         instance.addPreference("A-B-C");
         instance.addPreference("2:A-C");
         instance.addPreference("2:B-C");
@@ -125,20 +128,21 @@ public class SchulzeElectionTest_1 {
         assertEquals("C-B-A", instance.getWinners().toString());
     }
 
+
     @Test
     public void testGetWinners_9() {
-        SchulzeElection instance = SchulzeElection.of("A-B-C-D-E-F-G");
+        SummaryElection instance = SummaryElection.of("A-B-C-D-E-F-G");
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C-D-E-F-G", instance.getWinners().toString());
         //
-        instance = SchulzeElection.of("A-B-C-D-E-F-G-X");
+        instance = SummaryElection.of("A-B-C-D-E-F-G-X");
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C-D-E-F-G...", instance.getWinners().toString());
     }
 
     @Test
     public void testGetWinners_A() {
-        SchulzeElection instance = new SchulzeElection(Arrays.asList("A", "B", "C"));
+        SummaryElection instance = new SummaryElection(Arrays.asList("A", "B", "C"));
         instance.addPreference("B-C");
         instance.addPreference("C-B");
         //
@@ -182,7 +186,7 @@ public class SchulzeElectionTest_1 {
         final int MAX = 5;
         System.out.println(String.format("getWinners for %s candidates and %s voters", 5, MAX));
 
-        SchulzeElection instance = new SchulzeElection("ABCDE");
+        SummaryElection instance = new SummaryElection("ABCDE");
         instance.addPreference("A-B-C-DE");
         instance.addPreference("ED-CBA");
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -174,7 +174,8 @@ public class BasicPanel {
                     CompositeVotingMethod<String> res = calculateVoitingResult(voteArea.getText());
                     Object[][] dataGrid = new Object[][]{
                         {messages.bySchulzeMethod() + ':', "<strong>" + html.escape(res.getWinnersOfSchulze().toString(maxLimit)) + "</strong>"},
-                        {messages.oneVotingMethod() + ':', html.escape(res.getWinnersOfSingle().toString(maxLimit)) },
+                        {messages.byBordaCountMethod() + ':', html.escape(res.getWinnersOfBorda().toString(maxLimit)) },
+                        {messages.byPluralityMethod() + ':', html.escape(res.getWinnersOfPreferencePlurality().toString(maxLimit)) },
                         {null, null},
                         {messages.countOfCandidates() + ':', res.getCandidateCount()},
                         {messages.countOfVotes() + ':', res.getPreferenceCount()}

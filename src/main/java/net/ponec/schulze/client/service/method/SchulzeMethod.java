@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import static java.lang.Math.min;
 
 /**
  * The Schulze method
+ * for more information see the <a href="https://en.wikipedia.org/wiki/Schulze_method">Wikipedia</a>.
  * @author Pavel Ponec
  * @see https://en.wikipedia.org/wiki/Schulze_method
  */

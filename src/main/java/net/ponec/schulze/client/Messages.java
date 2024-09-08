@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, Pavel Ponec, https://github.com/pponec/
+ * Copyright 2017-2024, Pavel Ponec, https://github.com/pponec/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,8 +61,11 @@ public interface Messages extends com.google.gwt.i18n.client.Messages {
     @DefaultMessage("By Schulze method")
     String bySchulzeMethod();
 
-    @DefaultMessage("Only one choice")
-    String oneVotingMethod();
+    @DefaultMessage("By Borda Count method")
+    String byBordaCountMethod();
+
+    @DefaultMessage("First-preference plurality")
+    String byPluralityMethod();
 
     @DefaultMessage("Number of candidates")
     String countOfCandidates();
@@ -72,32 +75,28 @@ public interface Messages extends com.google.gwt.i18n.client.Messages {
 
     @DefaultMessage("On-line calculator (v{0}) is used to calculate the winner of the election"
             + " Schulze method where a detailed description of the method"
-            + " <a target=''_blank'' href=''{1}''>is here</a> .")
+            + " <a target=\"_blank\" href=\"{1}\">is here</a> .")
     String helpMessage1(String version, String url);
 
-    @DefaultMessage("To use: Assemble the offer candidates and assign each of them one character."
-            + " Each voter then writes to form their preferences on one line, where the first give"
-            + " my best and favorite of the right candidates will proceed with a lower preference."
-            + " If a candidate misses a voter, he assigns it the last place.")
-    String helpMessage2();
+    @DefaultMessage("How to use: create a list of candidates and assign one character to each of them." +
+            " Each voter then writes their preference on one line of the form, with the character" +
+            " of their biggest favourite first and the candidates with the lower preference moving to the right." +
+            " The separator between candidates is a hyphen, groups are allowed. If a candidate is omitted," +
+            " the voter assigns the last place to that candidate. If the voter votes for more than one person," +
+            " the line may be given by the number of persons followed by a colon." +
+            " More information can be found on the <a target=\"_blank\" href=\"{0}\">project homepage</a>."
+)
+    String helpMessage2(String homePage);
 
-    @DefaultMessage("This version only allows the public vote within the group of voters,"
-            + " the calculation result is always on the client. The author of the calculator devoted"
-            + " to verify the correct function is particularly noteworthy and covered"
-            + " it with automated tests, nevertheless liable for any damages caused by use."
-            + " Users must agree to these terms.")
+    @DefaultMessage("This version of the application only allows public voting" +
+            " within a group of voters, the calculation of the results is always done on the client." +
+            " The author of the calculator has paid special attention" +
+            " to the verification of the correct function and has covered it with automated tests," +
+            " however, he is not liable for any damage caused by its use." +
+            " The user of the calculator agrees to these terms and conditions.")
     String helpMessage3();
 
     @DefaultMessage("Close")
     String closeButton();
-
-    @DefaultMessage("a")
-    String a1();
-
-    @DefaultMessage("a")
-    String a2();
-
-    @DefaultMessage("a")
-    String a3();
 
 }

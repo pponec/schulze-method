@@ -6,7 +6,7 @@
   <inherits name="com.google.gwt.i18n.I18N"/>
 
   <!-- National languages, independent of country -->
-  <extend-property name="locale" values="cs"/>
+  <extend-property name="locale" values="cs,es,fr,de"/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='net.ponec.schulze.client.SchulzePoint' />
