@@ -1,6 +1,6 @@
 /**
  * Preference input data builder is a part of the project: https://github.com/pponec/schulze-method
- * Usage in the cell: `=PREFERENCES(B3;"B";C3:G3; 3)`
+ * Usage in the cell: `=PREFERENCES(B3;"C";C3:G3; 3)`
  * @param {number} count Number of voters per ballot.
  * @param {string} firstColName A character of the first elected candidate.
  * @param {array} array Array of preferences.
