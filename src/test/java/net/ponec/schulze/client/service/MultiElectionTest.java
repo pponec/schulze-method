@@ -220,6 +220,26 @@ public class MultiElectionTest {
         assertEquals("C-A-BE-D", method.getWinnersOfPreferencePlurality().toString());
     }
 
+    /** The winner of the Schulze method would not even make it
+     * to the second round in a majority vote. */
+    @Test
+    public void diplomaThesisCuni() {
+        String ballot = String.join("\n", ""
+                , "5:F-B-S"
+                , "7:F-S-B"
+                , "3:B-F-S"
+                , "7:B-S-F"
+                , "3:S-F-B"
+                , "6:S-B-F"
+        );
+        CommonElection<String> instance = createElection(ballot);
+        CompositeVotingMethod<String> method = instance.getMethod();
+        assertEquals(31, instance.getPreferenceCount());
+        assertEquals("S-B-F", method.getWinnersOfSchulze().toString());
+        assertEquals("S-B-F", method.getWinnersOfBorda().toString());
+        assertEquals("F-B-S", method.getWinnersOfPreferencePlurality().toString());
+    }
+
     // ------- Help Methods -------
 
     private static CommonElection<String> createElection(String ... preferences) {
