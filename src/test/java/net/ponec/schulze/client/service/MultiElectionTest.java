@@ -42,7 +42,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C", method.getWinnersOfSchulze().toString());
-        assertEquals("A-B-C", method.getWinnersOfFiner().toString());
         assertEquals("A-B-C", method.getWinnersOfBorda().toString());
         assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -54,7 +53,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("C-B-A", method.getWinnersOfSchulze().toString());
-        assertEquals("C-B-A", method.getWinnersOfFiner().toString());
         assertEquals("C-B-A", method.getWinnersOfBorda().toString());
         assertEquals("C-BA", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -65,7 +63,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("C-B-A", method.getWinnersOfSchulze().toString());
-        assertEquals("C-B-A", method.getWinnersOfFiner().toString());
         assertEquals("C-B-A", method.getWinnersOfBorda().toString());
         assertEquals("C-BA", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -76,7 +73,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("ABC", method.getWinnersOfSchulze().toString());
-        assertEquals("ABC", method.getWinnersOfFiner().toString());
         assertEquals("ABC", method.getWinnersOfBorda().toString());
         assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -87,7 +83,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-BC", method.getWinnersOfSchulze().toString());
-        assertEquals("A-BC", method.getWinnersOfFiner().toString());
         assertEquals("A-BC", method.getWinnersOfBorda().toString());
         assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -101,7 +96,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(3, instance.getPreferenceCount());
         assertEquals("CBA", method.getWinnersOfSchulze().toString());
-        assertEquals("CBA", method.getWinnersOfFiner().toString());
         assertEquals("ABC", method.getWinnersOfBorda().toString());
         assertEquals("CBA", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -112,7 +106,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(1, instance.getPreferenceCount());
         assertEquals("A-B-C", method.getWinnersOfSchulze().toString());
-        assertEquals("A-B-C", method.getWinnersOfFiner().toString());
         assertEquals("A-B-C", method.getWinnersOfBorda().toString());
         assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -130,7 +123,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(7, instance.getPreferenceCount());
         assertEquals("C-B-A", method.getWinnersOfSchulze().toString());
-        assertEquals("C-B-A", method.getWinnersOfFiner().toString());
         assertEquals("C-B-A", method.getWinnersOfBorda().toString());
         assertEquals("A-BC", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -145,7 +137,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(2, instance.getPreferenceCount());
         assertEquals("ADEHORT-BFIJPQS-CGK-LM-N", method.getWinnersOfSchulze().toString());
-        assertEquals("ADEHORT-BIJPQS-CF-K-GLM-N", method.getWinnersOfFiner().toString());
         assertEquals("A-B-CDE-FH-GIJ-K-LMT...", method.getWinnersOfBorda().toString());
         assertEquals("AT-BCDEFGHIJKLMNOPQRS", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -160,7 +151,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(2, instance.getPreferenceCount());
         assertEquals("ADE-BGF-C", method.getWinnersOfSchulze().toString());
-        assertEquals("ADE-B-CGF", method.getWinnersOfFiner().toString());
         assertEquals("A-B-CDE-FG", method.getWinnersOfBorda().toString());
         assertEquals("AG-BCDEF", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -175,7 +165,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(2, instance.getPreferenceCount());
         assertEquals("AE-B", method.getWinnersOfSchulze().toString());
-        assertEquals("AE-B", method.getWinnersOfFiner().toString());
         assertEquals("A-EB", method.getWinnersOfBorda().toString());
         assertEquals("AE-B", method.getWinnersOfPreferencePlurality().toString());
     }
@@ -194,7 +183,6 @@ public class MultiElectionTest {
         CompositeVotingMethod<String> method = instance.getMethod();
         assertEquals(4, instance.getPreferenceCount());
         assertEquals("ABC-D", method.getWinnersOfSchulze().toString());
-        assertEquals("ABC-D", method.getWinnersOfFiner().toString());
         assertEquals("BC-A-D", method.getWinnersOfBorda().toString());
         assertEquals("A-BC-D", method.getWinnersOfPreferencePlurality().toString());
     }

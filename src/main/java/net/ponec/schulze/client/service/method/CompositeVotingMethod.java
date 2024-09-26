@@ -25,7 +25,7 @@ import net.ponec.schulze.client.service.domain.Preference;
 /**
  * Composite voting method
  * @author Pavel Ponec
- * @see https://en.wikipedia.org/wiki/Schulze_method
+ * @see <a href="https://en.wikipedia.org/wiki/Schulze_method">...</a>
  */
 public class CompositeVotingMethod<C> extends AbstractVoitingMethod<C>{
 
@@ -51,7 +51,6 @@ public class CompositeVotingMethod<C> extends AbstractVoitingMethod<C>{
     private static <C> Set<AbstractVoitingMethod> createFullSet(Collection<C> candidateCollection) {
         final Set<AbstractVoitingMethod> result = new LinkedHashSet<>();
         result.add(new SchulzeMethod(candidateCollection));
-        result.add(new FinerSchulzeMethod(candidateCollection));
         result.add(new BordaCountVoteMethod(candidateCollection));
         result.add(new PreferencePluralityMethod(candidateCollection));
 
@@ -110,10 +109,6 @@ public class CompositeVotingMethod<C> extends AbstractVoitingMethod<C>{
 
     public Preference<C> getWinnersOfSchulze() {
         return getWinners(SchulzeMethod.class);
-    }
-
-    public Preference<C> getWinnersOfFiner() {
-        return getWinners(FinerSchulzeMethod.class);
     }
 
     public Preference<C> getWinnersOfBorda() {
