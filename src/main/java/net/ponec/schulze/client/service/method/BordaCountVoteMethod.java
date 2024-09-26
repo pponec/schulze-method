@@ -75,18 +75,21 @@ public class BordaCountVoteMethod<C> extends AbstractVoitingMethod<C> {
                 addPreference(preference, item, priority, tmpCandidateSet);
             }
         }
-        for (C item : new ArrayList<>(tmpCandidateSet)) {
-            addPreference(preference, item, priority, tmpCandidateSet);
+        for (C item : tmpCandidateSet) {
+            addPreference(preference, item, priority, null);
         }
     }
 
-    private void addPreference(IPreference<C> preference, C item, int priority, Set<C> candidateSet) {
+    private void addPreference(IPreference<C> preference, C item, int priority,
+                               Set<C> optionalCandidateSet) {
         final Envelope envelope = candidateMap.get(item);
         if (envelope == null) {
             throw new IllegalStateException("No envelope for the key '" + item +  "' was found");
         }
-        envelope.add((priority + 1) * preference.getCount());
-        candidateSet.remove(item);
+        envelope.add(priority * preference.getCount());
+        if (optionalCandidateSet != null) {
+            optionalCandidateSet.remove(item);
+        }
     }
 
     /** Calculate a winner order */
